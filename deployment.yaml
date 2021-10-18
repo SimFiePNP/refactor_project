@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: refactor_project
+  labels:
+    app: refactor_project
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: refactor_project
+  template:
+    metadata:
+      labels:
+        app: refactor_project
+    spec:
+      containers:
+        - name: udagram-api-user
+          image: simfie/udagram-api-user
+          ports:
+            - containerPort: 80
+        - name: reverseproxy
+            image: simfie/reverseproxy
+            ports:
+              - containerPort: 80
+        - name: udagram-api-feed
+            image: simfie/udagram-api-feed
+            ports:
+              - containerPort: 80
+        - name: udagram-frontend
+            image: simfie/udagram-frontend
+            ports:
+              - containerPort: 80
